@@ -1,11 +1,14 @@
 const todoList = () => {
   all = [];
+
   const add = (todoItem) => {
     all.push(todoItem);
   };
+
   const markAsComplete = (index) => {
     all[index].completed = true;
   };
+
   function overdue() {
     const today = new Date().toISOString().split("T")[0];
     return all.filter(
@@ -14,19 +17,22 @@ const todoList = () => {
         item.completed === false
     );
   }
+
   const dueToday = () => {
     return all.filter(
       (item) => item.dueDate === new Date().toISOString().slice(0, 10)
     );
   };
+
   function dueLater() {
     const today = new Date().toISOString().split("T")[0];
     return all.filter(
       item =>
         item.dueDate > today &&
-        (item.completed === false || item.title === "Submit assignment")
+        !item.completed
     );
   }
+
   const toDisplayableList = (list) => {
     return list
       .map((item) => {
@@ -39,6 +45,7 @@ const todoList = () => {
       })
       .join("\n");
   };
+
   return {
     all,
     add,
