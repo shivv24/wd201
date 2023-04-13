@@ -43,7 +43,7 @@ describe("TodoList Test Suite", () => {
         item.completed === false &&
         item.title !== "Submit assignment"
     );
-    expect(overdue().length).toEqual(overdueItems.length);
+    expect(overdue().length).toEqual(overdueItems.length); // Remove +1 from expected value
   });
 
   describe("Due Today Items", () => {
