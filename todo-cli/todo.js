@@ -1,13 +1,13 @@
-const todoList = () => {
-  all = [];
+function todoList() {
+  const all = [];
 
-  const add = (todoItem) => {
+  function add(todoItem) {
     all.push(todoItem);
-  };
+  }
 
-  const markAsComplete = (index) => {
+  function markAsComplete(index) {
     all[index].completed = true;
-  };
+  }
 
   function overdue() {
     const today = new Date().toISOString().split("T")[0];
@@ -19,8 +19,9 @@ const todoList = () => {
   }
 
   const dueToday = () => {
+    const today = new Date();
     return all.filter(
-      (item) => item.dueDate === new Date().toISOString().slice(0, 10)
+      (item) => item.dueDate === today.toISOString().split("T")[0]
     );
   };
 
@@ -29,22 +30,22 @@ const todoList = () => {
     return all.filter(
       item =>
         item.dueDate > today &&
-        !item.completed
+        item.completed === false
     );
   }
 
-  const toDisplayableList = (list) => {
-    return list
-      .map((item) => {
+  function toDisplayableList(items) {
+    return items
+      .map(item => {
         const isCompleted = item.completed ? "[x]" : "[ ]";
-        const displayableDate =
-          item.dueDate === new Date().toISOString().slice(0, 10)
-            ? ""
-            : item.dueDate;
-        return `${isCompleted} ${item.title.trim()} ${displayableDate.trim()}`;
+        return `${isCompleted} ${item.title} ${
+          item.dueDate !== new Date().toISOString().split("T")[0]
+            ? item.dueDate
+            : ""
+        }`;
       })
       .join("\n");
-  };
+  }
 
   return {
     all,
@@ -55,6 +56,6 @@ const todoList = () => {
     dueLater,
     toDisplayableList,
   };
-};
+}
 
 module.exports = todoList;
